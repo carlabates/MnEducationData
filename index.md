@@ -19,9 +19,9 @@ This website offers data and some analysis which may provide common ground on wh
 
 ###Question 1:  What does the student population look like across the state?  
 Exploring this question requires the dataset called 's_byDistrict' from [datasets] This dataset includes information on student demographics for students in each district in the state in the following categories:
-- free is free and reduced lunch
-- sped is special education
-- lep is limited english proficency
+- 'free' is free and reduced lunch
+- 'sped' is special education
+- 'lep' is limited english proficency
 
 
 ```r
@@ -40,9 +40,10 @@ print(head(s_toPrint))
 ## 6    05-06 Arrowhead      NORTH SHORE COMMUNITY SCHOOL   99   21   0   253
 ```
 
+For each year, the enrollment data for each group in each district was totaled and then divided the total enrollment in order to determine statewide proportions.
+
 
 ```r
-#These functions summarise data across districts and figure proportions.
 fn_sumEnr <- function(x) {
   x %>% summarise(enrll=sum(enrll, na.rm=TRUE),
                   free=sum(free, na.rm=TRUE), 
@@ -53,46 +54,13 @@ fn_propEnr <- function(x) {
   x %>% mutate_at(.vars = vars(3:5), 
                   .funs = funs(round((./enrll), 2)))
 }
-
-mn <- s_byDistrict %>% group_by(datayear) %>% fn_sumEnr(.)
-mn_enrll <- mn %>% filter(datayear == "05-06" | datayear == "16-17")
-
-mn_total <- prettyNum(mn_enrll[2,2]-mn_enrll[1,2], big.mark=",")
-mn_increase <- as.numeric(round((mn_enrll[2,2] - mn_enrll[1,2])/mn_enrll[1,2]*100))
-mn_free <- prettyNum(mn_enrll[2,3]-mn_enrll[1,3], big.mark=",")
-mn_fincrease <- as.numeric(round((mn_enrll[2,3] - mn_enrll[1,3])/mn_enrll[1,3]*100))
 ```
-
 
 From 2005 to 2016, the k12 student population in Minnesota increased by 28,504 which is a 3 percentage increase. 
 
 
 
-```r
-propmn <- mn %>% mutate(prop_free = round((free/enrll), 2), 
-                         prop_sped = round((sped/enrll), 2), 
-                         prop_lep = round((lep/enrll), 2))
-melted_propmn <- melt(propmn)
-f_propmn <- melted_propmn %>% filter(variable == "prop_free" | 
-                                     variable == "prop_sped" | 
-                                     variable == "prop_lep")
-```
-
 During this same period the numbers of students receiving free and reduced lunch increased by 68,634 students, meaning that the overall proportion of the student population in poverty increased by 28 percent.
-
-
-```r
-ggplot(f_propmn, aes(x=datayear, y=value, group=variable)) +
-  geom_line(aes(color=variable), size=2) +
-  xlab("Year") +
-  ylab("Proportion of total enrollment") +
-  ggtitle("Proportion of total enrollment of special populations\n across Minnesota from 2005-2016") +
-  scale_fill_brewer(palette = "Set1") +
-  annotate("text", x="13-14", y=0.32,
-    label=paste0("This percentage increase in children
-              receiving free and reduced lunch
-            is equivalent to ", mn_free, " children."))
-```
 
 ![](index_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
