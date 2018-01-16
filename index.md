@@ -9,7 +9,7 @@ _All datasets were downloaded from the [Minnesota Department of Education Data C
 _The raw data used is discussed at [datasets](datasets.Rmd)_
 
 
-# [](#header-1)Minnesota K12 Education Data
+# [](#header-1)Minnesota K12
 ###### [](#header-6)Compiled and analyzed by Carla Bates
 ###### [](#header-6)Site created January 2018; this page updated 2018-01-15
 
