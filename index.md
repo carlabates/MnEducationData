@@ -5,13 +5,12 @@ output:
     self_contained: no
 ---
 
-All datasets were downloaded from the [Minnesota Department of Education Data Center]
-(http://w20.education.state.mn.us/MDEAnalytics/DataTopic.jsp?TOPICID=3) in October 2017. The raw data used is discussed at [datasets] (datasets.Rmd) 
+_All datasets were downloaded from the [Minnesota Department of Education Data Center](http://w20.education.state.mn.us/MDEAnalytics/DataTopic.jsp?TOPICID=3). in October 2017. The raw data used is discussed at [datasets](datasets.Rmd)_
 
 
-##Minnesota K12 Education Data
-######*Compiled and analyzed by Carla Bates*
-######*Site created January 2018; this page updated 2018-01-15*
+#[Minnesota K12 Education Data]
+###[Compiled and analyzed by Carla Bates]
+###[Site created January 2018; this page updated 2018-01-15]
 
 Extraordinary passions light up numerous debates on education today.  Data is disparaged by the left who seem aesthically opposed to numbers for some reason or used as a cudgel by the right to beat up on the latest community school in the name of progress.  Of course, these flailings mask real questions about power and indicate huge cracks in how we think about our state, about who lives in our state, about who should benefit from the bounty of our state, and about our shared future? These are not questions to be answered with data but we have little chance of forging a just and sustainable future if we continue to ignore what the data can show us about how we are currently operating.
 
