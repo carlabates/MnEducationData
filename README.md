@@ -1,0 +1,3 @@
+# MnEducationData
+
+Files for website
