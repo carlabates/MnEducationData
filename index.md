@@ -9,15 +9,15 @@ _All datasets were downloaded from the [Minnesota Department of Education Data C
 _The raw data used is discussed at [datasets](datasets.Rmd)_
 
 
-#[](#header-1)Minnesota K12 Education Data
-######[](#header-6)Compiled and analyzed by Carla Bates
-######[](#header-6)Site created January 2018; this page updated 2018-01-15
+# [](#header-1)Minnesota K12 Education Data
+###### [](#header-6)Compiled and analyzed by Carla Bates
+###### [](#header-6)Site created January 2018; this page updated 2018-01-15
 
 **Extraordinary passions light up numerous debates on education today.**  Data is disparaged by the left who seem aesthically opposed to numbers for some reason or used as a cudgel by the right to beat up on the latest community school in the name of progress.  Of course, these flailings mask real questions about power and indicate huge cracks in how we think about our state, about who lives in our state, about who should benefit from the bounty of our state, and about our shared future? These are not questions to be answered with data but we have little chance of forging a just and sustainable future if we continue to ignore what the data can show us about how we are currently operating.
 
 This website offers data and analysis in the hopes of building common ground on which to stand when debating how to educate our children.
 
-####[](#header-4)Question 1:  What does k12 look like across the state?  
+#### [](#header-4)Question 1:  What does k12 look like across the state?  
 Exploring this question requires the dataset called 's_byDistrict' from [datasets](datasets.Rmd) s_byDistrict includes information on student demographics in each district in the state in the following categories:
 - 'free' is free and reduced lunch
 - 'sped' is special education
