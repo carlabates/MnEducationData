@@ -5,8 +5,8 @@ output:
     self_contained: no
 ---
 
-_All datasets were downloaded from the [Minnesota Department of Education Data Center](http://w20.education.state.mn.us/MDEAnalytics/DataTopic.jsp?TOPICID=3) in October 2017._ 
-_The raw data used is discussed at [datasets](datasets.Rmd)_
+_All datasets were downloaded from the [Minnesota Department of Education Data Center](http://w20.education.state.mn.us/MDEAnalytics/Data.jsp) in October 2017._ 
+_The raw data used is discussed at [datasets](datasets.md)_
 
 
 ## [](#header-2)Minnesota K12: Homepage
@@ -19,9 +19,11 @@ This website offers data and analysis in the hopes of building common ground on 
 
 #### [](#header-4)Question 1:  What does k12 look like across the state?  
 Exploring this question requires the dataset called 's_byDistrict' from [datasets](datasets.Rmd) s_byDistrict includes information on student demographics in each district in the state in the following categories:
-- 'free' is free and reduced lunch
-- 'sped' is special education
-- 'lep' is limited English proficency
+
+* 'free' is free and reduced lunch
+* 'sped' is special education
+* 'lep' is limited English proficency
+
 S_byDistrict contains 6225 'districts' of different 'types' - charters, co-ops, independent school systems.  We'll review districts by 'type' later.
 
 
@@ -61,7 +63,7 @@ From 2005 to 2016, the k12 student population in Minnesota increased by 28,504 w
 
 
 
-During this same period the numbers of students receiving free and reduced lunch increased by 68,634 students:  not only did more children in poverty join the k12 system but more children within the system already fell into poverty.  Note the significant up-tic around the 2008-09 Great Recession and how we have not returned to pree 2008 levels.  
+During this same period the numbers of students receiving free and reduced lunch increased by 68,634 students:  not only did more children in poverty join the k12 system but more children already within the system fell into poverty.  Note the significant up-tic around the 2008-09 Great Recession and how we have not returned to pre 2008 levels.  
 
 ![](index_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
@@ -69,6 +71,11 @@ The proportion of students receiving special education or of limited English pro
 
 
 
-#### [](#header-4)Question 2:  How have districts in different regions of the state fare?
+#### [](#header-4)Question 2:  How have districts in different regions of the state fared?
 
-Almost every region of the state experienced an increase in k12 student poverty after the 2008 Great Recession. 
+Increases in student poverty over the last decade have varied across the state. Every region of the state experienced an increase in k12 student poverty after the 2008 Great Recession, but some were better positioned to weather the storm and some have recovered while others are falling further behind.
+
+
+```r
+mn_byRegion <- s_byDistrict %>% group_by(datayear, region) %>% fn_sumEnr(.)
+```
