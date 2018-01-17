@@ -27,24 +27,18 @@ S_byDistrict contains 6225 'districts' of different 'types' - charters, co-ops, 
 
 ```r
 s_byDistrict <- read.csv("data/s_byDistrict.csv", stringsAsFactors = FALSE)
-print(head(s_byDistrict))
+s_toPrint <- s_byDistrict %>% select(-X, -districttype)
+print(head(s_toPrint))
 ```
 
 ```
-##   X datayear    region districttype                          district free
-## 1 1    05-06 Arrowhead      Charter      BIRCH GROVE COMMUNITY SCHOOL   18
-## 2 2    05-06 Arrowhead      Charter     DULUTH PUBLIC SCHOOLS ACADEMY  380
-## 3 3    05-06 Arrowhead      Charter                GREAT EXPECTATIONS    0
-## 4 4    05-06 Arrowhead      Charter HARBOR CITY INTERNATIONAL CHARTER   79
-## 5 5    05-06 Arrowhead      Charter         LAKE SUPERIOR HIGH SCHOOL   48
-## 6 6    05-06 Arrowhead      Charter      NORTH SHORE COMMUNITY SCHOOL   99
-##   sped lep enrll
-## 1    3   0    32
-## 2  126   0   773
-## 3    6   0    36
-## 4   40   3   205
-## 5   21   0    86
-## 6   21   0   253
+##   datayear    region                          district free sped lep enrll
+## 1    05-06 Arrowhead      BIRCH GROVE COMMUNITY SCHOOL   18    3   0    32
+## 2    05-06 Arrowhead     DULUTH PUBLIC SCHOOLS ACADEMY  380  126   0   773
+## 3    05-06 Arrowhead                GREAT EXPECTATIONS    0    6   0    36
+## 4    05-06 Arrowhead HARBOR CITY INTERNATIONAL CHARTER   79   40   3   205
+## 5    05-06 Arrowhead         LAKE SUPERIOR HIGH SCHOOL   48   21   0    86
+## 6    05-06 Arrowhead      NORTH SHORE COMMUNITY SCHOOL   99   21   0   253
 ```
 
 For each year, the enrollment data for each group in each district was totaled and then divided by total enrollment in order to determine statewide proportions.
