@@ -11,7 +11,7 @@ _The raw data used is discussed at [datasets](datasets.md)_
 
 ## [](#header-2)Minnesota K12: Homepage
 * Compiled and analyzed by Carla Bates.
-* Site created January 2018; this page updated 2018-01-17
+* Site created January 2018; this page updated 2018-01-28
 
 **Extraordinary passions light up numerous debates on education today.**  Data is disparaged by the left who seem aesthically opposed to numbers for some reason or used as a cudgel by the right to beat up on the latest community school in the name of progress.  These flailings mask real questions about power and indicate cracks in how we think about our state, about who lives in our state, about who should benefit from the bounty of our state, and about our shared future. These are not questions to be answered with data but we have little chance of forging a just and sustainable future if we continue to ignore what the data can show us about how we are currently operating.
 
@@ -27,20 +27,21 @@ Exploring this question requires the dataset called 's_byDistrict' from [dataset
 S_byDistrict contains 6225 'districts' of different 'types' - charters, co-ops, independent school systems.  We'll review districts by 'type' later.
 
 
-```r
-s_byDistrict <- read.csv("data/s_byDistrict.csv", stringsAsFactors = FALSE)
-s_toPrint <- s_byDistrict %>% select(-X, -districttype)
-print(head(s_toPrint))
 ```
-
-```
-##   datayear    region                          district free sped lep enrll
-## 1    05-06 Arrowhead      BIRCH GROVE COMMUNITY SCHOOL   18    3   0    32
-## 2    05-06 Arrowhead     DULUTH PUBLIC SCHOOLS ACADEMY  380  126   0   773
-## 3    05-06 Arrowhead                GREAT EXPECTATIONS    0    6   0    36
-## 4    05-06 Arrowhead HARBOR CITY INTERNATIONAL CHARTER   79   40   3   205
-## 5    05-06 Arrowhead         LAKE SUPERIOR HIGH SCHOOL   48   21   0    86
-## 6    05-06 Arrowhead      NORTH SHORE COMMUNITY SCHOOL   99   21   0   253
+##   datayear    region  county                         district free sped
+## 1    05-06 Arrowhead  Aitkin    AITKIN PUBLIC SCHOOL DISTRICT  486  162
+## 2    05-06 Arrowhead  Aitkin HILL CITY PUBLIC SCHOOL DISTRICT  181   55
+## 3    05-06 Arrowhead  Aitkin  MCGREGOR PUBLIC SCHOOL DISTRICT  275   74
+## 4    05-06 Arrowhead Carlton    BARNUM PUBLIC SCHOOL DISTRICT  245   97
+## 5    05-06 Arrowhead Carlton   CARLTON PUBLIC SCHOOL DISTRICT  174   72
+## 6    05-06 Arrowhead Carlton   CLOQUET PUBLIC SCHOOL DISTRICT  785  269
+##   lep enrll
+## 1   0  1311
+## 2   0   328
+## 3   0   452
+## 4   0   679
+## 5   0   579
+## 6   2  2271
 ```
 
 For each year, the enrollment data for each group in each district was totaled and then divided by total enrollment in order to determine statewide proportions.
@@ -70,12 +71,7 @@ During this same period the numbers of students receiving free and reduced lunch
 The proportion of students receiving special education or of limited English proficency remained almost flat, increasing by 6% and 3% respectively.
 
 
-
-#### [](#header-4)Question 2:  How have districts in different regions of the state fared?
+#### [](#header-4)Question 2:  [How have districts in different regions of the state fared?](question_2.md)
 
 Increases in student poverty over the last decade have varied across the state. Every region of the state experienced an increase in k12 student poverty after the 2008 Great Recession, but some were better positioned to weather the storm and some have recovered while others are falling further behind.
 
-
-```r
-mn_byRegion <- s_byDistrict %>% group_by(datayear, region) %>% fn_sumEnr(.)
-```
