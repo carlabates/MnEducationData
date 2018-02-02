@@ -9,16 +9,17 @@ _All datasets were downloaded from the [Minnesota Department of Education Data C
 _The raw data used is discussed at [datasets](datasets.md)_
 
 
-## [](#header-2)Minnesota K12: Homepage
+## [](#header-2) Homepage, data from 2005-2016
 * Compiled and analyzed by Carla Bates.
-* Site created January 2018; this page updated 2018-01-28
+* Main datasets sets and subsequent analysis will be updated annually.
+* Site created January 2018; this page updated 2018-02-02
 
 **Extraordinary passions light up numerous debates on education today.**  Data is disparaged by the left who seem aesthically opposed to numbers for some reason or used as a cudgel by the right to beat up on the latest community school in the name of progress.  These flailings mask real questions about power and indicate cracks in how we think about our state, about who lives in our state, about who should benefit from the bounty of our state, and about our shared future. These are not questions to be answered with data but we have little chance of forging a just and sustainable future if we continue to ignore what the data can show us about how we are currently operating.
 
 This website offers data and analysis in the hopes of building common ground on which to stand when debating how to educate our children.
 
-#### [](#header-4)Question 1:  What does k12 look like across the state?  
-Exploring this question requires the dataset called 's_byDistrict' from [datasets](datasets.Rmd) s_byDistrict includes information on student demographics in each district in the state in the following categories:
+### [](#header-3) MNk12 enrollment data 
+The dataset 's_byDistrict' described at [datasets](datasets.Rmd) includes information on student demographics in each district in the state in the following categories:
 
 * 'free' is free and reduced lunch
 * 'sped' is special education
@@ -60,18 +61,25 @@ fn_propEnr <- function(x) {
 }
 ```
 
-From 2005 to 2016, the k12 student population in Minnesota increased by 28,504 which is a 3% increase. 
+### [](#header-3) Total Enrollment:  students first.
+From 2005 to 2016, the k12 student population in Minnesota increased by 28,504, a 3% increase. 
 
 
 
-During this same period the numbers of students receiving free and reduced lunch increased by 68,634 students:  not only did more children in poverty join the k12 system but more children already within the system fell into poverty.  Note the significant up-tic around the 2008-09 Great Recession and how we have not returned to pre 2008 levels.  
+During this same period the numbers of students receiving free and reduced lunch increased by 68,634 students:  not only did more children in poverty join the k12 system but more children already within the system fell into poverty.  
+
+Note the increase in poverty around the 2008-09 Great Recession and how we have not returned to pre 2008 levels.  
 
 ![](index_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
 The proportion of students receiving special education or of limited English proficency remained almost flat, increasing by 6% and 3% respectively.
 
+* * *
+****** [](#header-6)Explore further ...
 
-#### [](#header-4)Question 2:  [How have districts in different regions of the state fared?](question_2.md)
+* [Regional enrollment](question_2.md)
+* [Statwide k12 financial picture]
+* [Statwide k12 human resources]
 
-Increases in student poverty over the last decade have varied across the state. Every region of the state experienced an increase in k12 student poverty after the 2008 Great Recession, but some were better positioned to weather the storm and some have recovered while others are falling further behind.
+
 
