@@ -4,7 +4,40 @@ output:
     keep_md: yes
     self_contained: no
 ---
+```{r echo=FALSE, error=FALSE, message=FALSE, warning=FALSE}
+#These functions summarise data across districts and figure proportions.
+library(tidyverse)
+library(RColorBrewer)
+library(sqldf)
+library(psych)
+library(stringr)
+library(reshape2)
 
+scenrollment <- read.csv("../output/scenrollment.csv", stringsAsFactors = FALSE) %>% select(-X)
+
+scenroll <- scenrollment %>% mutate(ami = amimale + amifemale,
+                                          asi = asimale + asifemale,
+                                          his = hismale + hisfemale,
+                                          blk = blkmale + blkfemale,
+                                          wht = whtmale + whtfemale,
+                                          hpi = hpimale + hpifemale,
+                                          mlt = mltmale + mltfemale,
+                                          sc = ami + asi + his + blk + hpi + mlt)
+
+fn_sumSCEnr <- function(x) {
+  x %>% summarise(ami= sum(ami, na.rm=TRUE), 
+                  asi = sum(asi, na.rm=TRUE),
+                  his = sum(his, na.rm=TRUE),
+                  blk = sum(blk, na.rm=TRUE),
+                  wht = sum(wht, na.rm=TRUE),
+                  hpi = sum(hpi, na.rm=TRUE),
+                  mlt = sum(mlt, na.rm=TRUE),
+                  sc = sum(sc, na.rm=TRUE),
+                  enrll = sum(totalstudents, na.rm=TRUE)
+  )
+}
+
+```
 _All datasets were downloaded from the [Minnesota Department of Education Data Center](http://w20.education.state.mn.us/MDEAnalytics/Data.jsp) in October 2017._ 
 _The raw data used is discussed at [datasets](datasets.md)_
 
@@ -12,7 +45,7 @@ _The raw data used is discussed at [datasets](datasets.md)_
 ## [](#header-2) Mn Education data, 2005-2016
 * Compiled and analyzed by Carla Bates.
 * Main datasets sets and subsequent analysis will be updated annually.
-* Site created January 2018; this page updated 2018-05-01
+* Site created January 2018; this page updated `r Sys.Date()`
 
 **Extraordinary passions light up numerous debates on education today.**  Data is disparaged by the left who seem aesthically opposed to numbers or used as a cudgel by the right to beat up on yet another community school in the name of progress.  These flailings mask real questions about power and indicate cracks in how we think about our state, who lives here,  how our resources should be distributed, and what the future will hold. These are not questions to be answered with data but in order to develop just and sustainable answers we need to consider rather than ignore or exploit what the data can show us about how we are currently operating.
 
@@ -24,7 +57,44 @@ Racial demographics in Minnesota - as in the rest of the United States - are cha
  
 Consider the following changes in k12 enrollment statewide since 2005.
 
-![](index_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+``` {r echo=FALSE, error=FALSE, message=FALSE, warning=FALSE}
+
+sc_statewide <- scenroll %>% group_by(datayear) %>% fn_sumSCEnr(.)
+sc_0506 <- prettyNum(sc_statewide$sc[1], big.mark=",")
+sc_c <- prettyNum(sc_statewide$sc[nrow(sc_statewide)], big.mark=",") 
+wht_0506 <- prettyNum(sc_statewide$wht[1], big.mark=",") 
+wht_c <- prettyNum(sc_statewide$wht[nrow(sc_statewide)], big.mark=",") 
+sc_mn <- sc_statewide %>%  mutate(prop_ami = round((ami/enrll), 2), 
+                                  prop_asi = round((asi/enrll), 2), 
+                                  prop_his = round((his/enrll), 2),
+                                  prop_blk = round((blk/enrll), 2),
+                                  prop_hpi = round((hpi/enrll), 2),
+                                  prop_mlt = round((mlt/enrll), 2),
+                                  prop_wht = round((wht/enrll), 2),                                                                      prop_sc = prop_ami+prop_asi+prop_his +prop_blk+prop_hpi+prop_mlt)
+
+sc_mnX <- sc_mn %>% select(datayear, prop_wht, prop_sc) %>%
+  mutate(dy=as.integer(gsub(("..-"), "20", sc_mn$datayear))) %>%
+  mutate(DY=format(as.Date((as.character(dy)), format="%Y"), "%Y")) %>%
+  select(-datayear)
+
+sc_lm <- coef(lm(sc_mnX$dy ~ sc_mnX$prop_sc))
+wht_lm <- coef(lm(sc_mnX$dy ~ sc_mnX$prop_wht))
+
+sc_mn_m <- sc_mnX %>% select(-dy) %>% melt(.)
+
+ggplot(sc_mn_m, aes(x=DY, y=value, group=variable, color=variable)) +
+  geom_point(size=3) +
+  xlab("Year") + 
+  ylab("Proportion of total enrollment") +
+  ggtitle("Change in percentage of students of color and white students \n in Minnesota from 2005-2016") +
+  scale_color_manual(values=c("#996600", "#336633","#3333FF")) +
+  annotate("text", x="2007", y=.26, label=paste0("N = ", sc_0506)) +
+  annotate("text", x="2016", y=.36, label=paste0("N = ", sc_c)) +
+  annotate("text", x="2007", y=.74, label=paste0("N = ", wht_0506)) +
+  annotate("text", x="2016", y=.64, label=paste0("N = ", wht_c)) +
+  geom_smooth(method="lm", se = FALSE, col="grey")
+
+```
 
 Birthrates and immigration levels have been historically predictive of k12 enrollment. Birthrates in Minnesota indicate that the trends above will continue into the future, although they may not be as robust as they have been given the changing political environment around immigration.  Like the state as a whole, future k12 populations will be increasingly diverse. For more information on birth rates in Minnesota please consider [the work of the Mn State Demographer](https://mn.gov/admin/assets/mn-births-yet-to-rebound-to-prerecession-level-popnotes-nov2014_tcm36-219637.pdf)
 
